@@ -8,6 +8,7 @@ const CustomerList = () => {
 
     const [customers, setCustomers] = useState([])
     const [näytetäänkö, setNäytetäänkö] = useState(false)
+    const [search, setSearch] = useState("")
     const [lisäysTila, setLisäystila] = useState(false)
 
     useEffect(() => {
@@ -19,13 +20,30 @@ const CustomerList = () => {
             })
     }, [])
 
+    //Hakukentän onChange tapahtumankäsittelijä
+    const handleSearchInputChange = (event) => {
+        setNäytetäänkö(true)
+        setSearch(event.target.value.toLowerCase())
+    }
+
     return (
         <>
-            <h1 style={{ cursor: 'pointer' }} onClick={() => setNäytetäänkö(!näytetäänkö)}>customers <button onClick={() => setLisäystila(true)}>Add new</button></h1>
+            <h1 style={{ cursor: 'pointer' }}
+                onClick={() => setNäytetäänkö(!näytetäänkö)}> customers
+            <button onClick={() => setLisäystila(true)}>Add new</button>
+            </h1>
+
+            <input value={search} onChange={handleSearchInputChange} />
 
             {
-                customers && näytetäänkö === true && lisäysTila === false && customers.map(customer =>
-                    <Customer customer={customer} />
+                customers && näytetäänkö === true && lisäysTila === false && customers.map(customer => {
+                    const caseInsensName = customer.companyName.toLowerCase()
+                    if (caseInsensName.indexOf(search) > -1) {
+                        return (
+                            <Customer key={customer.customerId} customer={customer} />
+                        )
+                    }
+                }
                 )
             }
 
