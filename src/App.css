@@ -42,3 +42,8 @@ table, th, td {
   margin: auto;
   border-radius: 30px;
 }
+
+.kello {
+  margin-left: 30%;
+  margin-top: 10px;
+}

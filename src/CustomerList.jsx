@@ -22,6 +22,7 @@ const CustomerList = () => {
 
     //Hakukentän onChange tapahtumankäsittelijä
     const handleSearchInputChange = (event) => {
+        console.log(search)
         setNäytetäänkö(true)
         setSearch(event.target.value.toLowerCase())
     }
@@ -33,12 +34,13 @@ const CustomerList = () => {
             <button onClick={() => setLisäystila(true)}>Add new</button>
             </h1>
 
-            <input value={search} onChange={handleSearchInputChange} />
+
+            <input placeholder="Search by company name" value={search} onChange={handleSearchInputChange} />
 
             {
                 customers && näytetäänkö === true && lisäysTila === false && customers.map(customer => {
-                    const caseInsensName = customer.companyName.toLowerCase()
-                    if (caseInsensName.indexOf(search) > -1) {
+                    const lowerCaseName = customer.companyName.toLowerCase()
+                    if (lowerCaseName.indexOf(search) > -1) {
                         return (
                             <Customer key={customer.customerId} customer={customer} />
                         )
