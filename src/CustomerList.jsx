@@ -18,7 +18,7 @@ const CustomerList = () => {
                 //console.log(data)
                 setCustomers(data)
             })
-    }, [])
+    }, [lisäysTila])
 
     //Hakukentän onChange tapahtumankäsittelijä
     const handleSearchInputChange = (event) => {
@@ -34,8 +34,9 @@ const CustomerList = () => {
             <button onClick={() => setLisäystila(true)}>Add new</button>
             </h1>
 
-
-            <input placeholder="Search by company name" value={search} onChange={handleSearchInputChange} />
+            {!lisäysTila &&
+                <input placeholder="Search by company name" value={search} onChange={handleSearchInputChange} />
+            }
 
             {
                 customers && näytetäänkö === true && lisäysTila === false && customers.map(customer => {
@@ -51,7 +52,8 @@ const CustomerList = () => {
 
             { !customers && <p>Loading...</p>}
 
-            {lisäysTila === true && <CustomerAdd setLisäystila={setLisäystila} />}
+            {lisäysTila === true && <CustomerAdd setLisäystila={setLisäystila}
+                customers={customers} setCustomers={setCustomers} />}
 
         </>
     )
