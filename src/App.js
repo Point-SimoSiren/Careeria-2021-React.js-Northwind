@@ -5,7 +5,6 @@ import Kello from './Kello'
 
 const App = () => {
 
-  const [luku, setLuku] = useState(0)
   const [clock, setClock] = useState(false)
 
   return (

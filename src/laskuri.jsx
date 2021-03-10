@@ -1,6 +1,10 @@
+import React, { useState } from 'react'
 import './App.css'
 
-const Laskuri = ({ luku, setLuku }) => {
+const Laskuri = () => {
+
+    const [luku, setLuku] = useState(0)
+
     return (
         <>
             <h2>{luku}</h2>

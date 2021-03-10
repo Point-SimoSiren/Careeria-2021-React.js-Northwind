@@ -18,7 +18,7 @@ const CustomerList = () => {
                 //console.log(data)
                 setCustomers(data)
             })
-    }, [lisäysTila])
+    }, [])
 
     //Hakukentän onChange tapahtumankäsittelijä
     const handleSearchInputChange = (event) => {
@@ -53,7 +53,7 @@ const CustomerList = () => {
             { !customers && <p>Loading...</p>}
 
             {lisäysTila === true && <CustomerAdd setLisäystila={setLisäystila}
-                customers={customers} setCustomers={setCustomers} />}
+                customers={customers} setSearch={setSearch} setCustomers={setCustomers} />}
 
         </>
     )

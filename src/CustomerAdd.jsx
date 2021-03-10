@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './App.css'
 import CustomerService from './services/customer'
 
-const CustomerAdd = ({ setLisäystila, setCustomers, customers }) => {
+const CustomerAdd = ({ setLisäystila, setSearch, setCustomers, customers }) => {
 
     // State määritykset
 
@@ -41,8 +41,10 @@ const CustomerAdd = ({ setLisäystila, setCustomers, customers }) => {
             CustomerService // Käytetään services/customer tiedoston..
                 .create(newCustomer) // ..create metodia back-end http pyyntöön
                 .then(data => {
-                    alert('Added customer: ', data.companyName)
+                    alert('Added customer')
                     setCustomers(customers.concat(data))
+                    setSearch('')
+                    setLisäystila(false)
                 }
                 )
         }
@@ -60,7 +62,7 @@ const CustomerAdd = ({ setLisäystila, setCustomers, customers }) => {
             setNewPostalCode('')
             setNewPhone('')
             setNewFax('')
-            setLisäystila(false)
+
         }
     }
 
