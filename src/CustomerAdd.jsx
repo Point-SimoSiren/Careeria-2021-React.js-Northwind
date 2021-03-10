@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './App.css'
 import CustomerService from './services/customer'
 
-const CustomerAdd = ({ setLisäystila }) => {
+const CustomerAdd = ({ setLisäystila, setCustomers, customers }) => {
 
     // State määritykset
 
@@ -23,7 +23,7 @@ const CustomerAdd = ({ setLisäystila }) => {
 
     const submitCustomer = (event) => {
         event.preventDefault()
-        let newCustomer = {
+        var newCustomer = {
             customerId: newCustomerId,
             companyName: newCompanyName,
             contactName: newContactName,
@@ -35,24 +35,24 @@ const CustomerAdd = ({ setLisäystila }) => {
             phone: newPhone,
             fax: newFax
         }
-        console.log("objekti luotu: ", newCustomer)
 
         try {
             CustomerService // Käytetään services/customer tiedoston..
                 .create(newCustomer) // ..create metodia back-end http pyyntöön
-                .then(data => {
-                    console.log(data)
-                    alert('Added new customer')
-                }
-                )
+                .then(data => alert(`Lisätty ${data.data}`))
+            setCustomers(customers.concat(newCustomer))
+
         }
         catch {
             alert("Error happened")
         }
         finally {
 
-            window.reload()
-            /*setNewCustomerId('')
+            setLisäystila(false)
+
+
+            /*
+            setNewCustomerId('')
             setNewCompanyName('') // Input kenttien tyhjennys
             setNewContactName('')
             setNewContactTitle('')
@@ -61,8 +61,8 @@ const CustomerAdd = ({ setLisäystila }) => {
             setNewCity('')
             setNewPostalCode('')
             setNewPhone('')
-            setNewFax('')*/
-
+            setNewFax('')
+            */
         }
     }
 

@@ -10,7 +10,7 @@ const App = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <marquee><h1 onClick={() => setClock(!clock)}>Northwind Traders Limited</h1></marquee>
+        <h2 onClick={() => setClock(!clock)}>Northwind Traders Limited</h2>
       </header>
 
       {clock && <Kello koko={500} />}

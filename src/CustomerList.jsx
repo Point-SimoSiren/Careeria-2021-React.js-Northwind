@@ -15,10 +15,10 @@ const CustomerList = () => {
         CustomerService
             .getAll()
             .then(data => {
-                //console.log(data)
+                console.log(data)
                 setCustomers(data)
             })
-    }, [])
+    }, [näytetäänkö])
 
     //Hakukentän onChange tapahtumankäsittelijä
     const handleSearchInputChange = (event) => {
@@ -52,7 +52,7 @@ const CustomerList = () => {
 
             { !customers && <p>Loading...</p>}
 
-            {lisäysTila === true && <CustomerAdd setLisäystila={setLisäystila} />}
+            {lisäysTila === true && <CustomerAdd setLisäystila={setLisäystila} setNäytetäänkö={setNäytetäänkö} customers={customers} setCustomers={setCustomers} />}
 
         </>
     )
