@@ -52,8 +52,7 @@ const CustomerList = () => {
 
             { !customers && <p>Loading...</p>}
 
-            {lisäysTila === true && <CustomerAdd setLisäystila={setLisäystila}
-                customers={customers} setSearch={setSearch} setCustomers={setCustomers} />}
+            {lisäysTila === true && <CustomerAdd setLisäystila={setLisäystila} />}
 
         </>
     )

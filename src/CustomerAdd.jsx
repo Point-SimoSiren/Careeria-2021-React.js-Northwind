@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './App.css'
 import CustomerService from './services/customer'
 
-const CustomerAdd = ({ setLisäystila, setSearch, setCustomers, customers }) => {
+const CustomerAdd = ({ setLisäystila }) => {
 
     // State määritykset
 
@@ -41,18 +41,18 @@ const CustomerAdd = ({ setLisäystila, setSearch, setCustomers, customers }) => 
             CustomerService // Käytetään services/customer tiedoston..
                 .create(newCustomer) // ..create metodia back-end http pyyntöön
                 .then(data => {
-                    alert('Added customer')
-                    setCustomers(customers.concat(data))
-                    setSearch('')
-                    setLisäystila(false)
+                    console.log(data)
+                    alert('Added new customer')
                 }
                 )
         }
-        catch (e) {
-            alert("Error happened: ", e)
+        catch {
+            alert("Error happened")
         }
         finally {
-            setNewCustomerId('')
+
+            window.reload()
+            /*setNewCustomerId('')
             setNewCompanyName('') // Input kenttien tyhjennys
             setNewContactName('')
             setNewContactTitle('')
@@ -61,7 +61,7 @@ const CustomerAdd = ({ setLisäystila, setSearch, setCustomers, customers }) => 
             setNewCity('')
             setNewPostalCode('')
             setNewPhone('')
-            setNewFax('')
+            setNewFax('')*/
 
         }
     }
