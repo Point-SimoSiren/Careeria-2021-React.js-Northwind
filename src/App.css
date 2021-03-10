@@ -1,3 +1,8 @@
+h3 {
+  text-align: right;
+  margin-right: 30%;
+}
+
 .App {
   text-align: center;
   font-size: 22px;
@@ -13,7 +18,7 @@ button {
   margin-left: 10px;
   font-size: 26px;
   background-color: chocolate;
-  overflow: visible;
+  color: white;
 }
 
 .App-header {
@@ -41,4 +46,26 @@ table, th, td {
   width: 85%;
   margin: auto;
   border-radius: 30px;
+}
+
+.kello {
+  margin-left: 30%;
+  margin-top: 10px;
+}
+
+form {
+  margin-left: 20%;
+  border-style: solid;
+  border-color: chocolate;
+  padding-bottom: 8px;
+  padding-top: 8px;
+  width: 60%;
+  background: chocolate;
+  border-radius: 7px;
+}
+
+input {
+  height: 30px;
+  width: 50%;
+  margin-bottom: 6px;
 }

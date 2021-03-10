@@ -7,10 +7,10 @@ const Customer = ({ customer }) => {
 
     return (
         <>
-            <h3 onMouseOver={() => setNäytäEnemmän(!näytäEnemmän)}
-                onMouseLeave={() => setNäytäEnemmän(!näytäEnemmän)}
+            <h3 onClick={() => setNäytäEnemmän(!näytäEnemmän)}
+
             >
-                {customer.companyName} <button>Delete</button>
+                {customer.companyName} <button style={{ marginLeft: '40px' }}>Delete</button>
                 <button>Edit</button>
             </h3>
 

@@ -8,6 +8,7 @@ const CustomerList = () => {
 
     const [customers, setCustomers] = useState([])
     const [näytetäänkö, setNäytetäänkö] = useState(false)
+    const [search, setSearch] = useState("")
     const [lisäysTila, setLisäystila] = useState(false)
 
     useEffect(() => {
@@ -17,21 +18,42 @@ const CustomerList = () => {
                 //console.log(data)
                 setCustomers(data)
             })
-    }, [])
+    }, [lisäysTila])
+
+    //Hakukentän onChange tapahtumankäsittelijä
+    const handleSearchInputChange = (event) => {
+        console.log(search)
+        setNäytetäänkö(true)
+        setSearch(event.target.value.toLowerCase())
+    }
 
     return (
         <>
-            <h1 style={{ cursor: 'pointer' }} onClick={() => setNäytetäänkö(!näytetäänkö)}>customers <button onClick={() => setLisäystila(true)}>Add new</button></h1>
+            <h1 style={{ cursor: 'pointer' }}
+                onClick={() => setNäytetäänkö(!näytetäänkö)}> customers
+            <button onClick={() => setLisäystila(true)}>Add new</button>
+            </h1>
+
+            {!lisäysTila &&
+                <input placeholder="Search by company name" value={search} onChange={handleSearchInputChange} />
+            }
 
             {
-                customers && näytetäänkö === true && lisäysTila === false && customers.map(customer =>
-                    <Customer customer={customer} />
+                customers && näytetäänkö === true && lisäysTila === false && customers.map(customer => {
+                    const lowerCaseName = customer.companyName.toLowerCase()
+                    if (lowerCaseName.indexOf(search) > -1) {
+                        return (
+                            <Customer key={customer.customerId} customer={customer} />
+                        )
+                    }
+                }
                 )
             }
 
             { !customers && <p>Loading...</p>}
 
-            {lisäysTila === true && <CustomerAdd setLisäystila={setLisäystila} />}
+            {lisäysTila === true && <CustomerAdd setLisäystila={setLisäystila}
+                customers={customers} setCustomers={setCustomers} />}
 
         </>
     )

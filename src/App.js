@@ -1,25 +1,22 @@
 import React, { useState } from 'react'
 import './App.css'
-import Laskuri from './laskuri'
 import CustomerList from './CustomerList'
+import Kello from './Kello'
 
 const App = () => {
 
   const [luku, setLuku] = useState(0)
-
-  /*setTimeout(() => {
-    setLuku(luku + 1)
-  }, 1000
-  )*/
+  const [clock, setClock] = useState(false)
 
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Northwind</h1>
+        <marquee><h1 onClick={() => setClock(!clock)}>Northwind Traders Limited</h1></marquee>
       </header>
-      <CustomerList />
 
-      {/*<Laskuri luku={luku} setLuku={setLuku} />*/}
+      {clock && <Kello koko={500} />}
+
+      {!clock && <CustomerList />}
 
     </div>
   )
