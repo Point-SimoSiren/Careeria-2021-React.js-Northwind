@@ -52,7 +52,7 @@ const CustomerList = () => {
 
             { !customers && <p>Loading...</p>}
 
-            {lisäysTila === true && <CustomerAdd setLisäystila={setLisäystila} setNäytetäänkö={setNäytetäänkö} customers={customers} setCustomers={setCustomers} />}
+            {lisäysTila && <CustomerAdd setLisäystila={setLisäystila} setNäytetäänkö={setNäytetäänkö} customers={customers} setCustomers={setCustomers} />}
 
         </>
     )
