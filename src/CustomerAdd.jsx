@@ -50,19 +50,6 @@ const CustomerAdd = ({ setLisäystila, setCustomers, customers }) => {
 
             setLisäystila(false)
 
-
-            /*
-            setNewCustomerId('')
-            setNewCompanyName('') // Input kenttien tyhjennys
-            setNewContactName('')
-            setNewContactTitle('')
-            setNewCountry('')
-            setNewAddress('')
-            setNewCity('')
-            setNewPostalCode('')
-            setNewPhone('')
-            setNewFax('')
-            */
         }
     }
 
