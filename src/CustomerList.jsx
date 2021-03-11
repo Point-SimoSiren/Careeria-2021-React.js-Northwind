@@ -22,7 +22,6 @@ const CustomerList = () => {
 
     //Hakukentän onChange tapahtumankäsittelijä
     const handleSearchInputChange = (event) => {
-        console.log(search)
         setNäytetäänkö(true)
         setSearch(event.target.value.toLowerCase())
     }
@@ -52,7 +51,7 @@ const CustomerList = () => {
 
             { !customers && <p>Loading...</p>}
 
-            {lisäysTila && <CustomerAdd setLisäystila={setLisäystila} setNäytetäänkö={setNäytetäänkö} customers={customers} setCustomers={setCustomers} />}
+            {lisäysTila && <CustomerAdd setLisäystila={setLisäystila} customers={customers} setCustomers={setCustomers} />}
 
         </>
     )
