@@ -75,7 +75,7 @@ const CustomerAdd = ({ setLisäystila, setCustomers, customers, setMessage, setS
     return (
         <form onSubmit={submitCustomer}>
 
-            {/* inputien tapahtumankäsittelijät on funktiota, jotka saa parametrikseen
+            {/* inputien tapahtumankäsittelijöissä on määritelty funktio, jotka saa parametrikseen kyseisen
             input elementin target tiedon. Funktiot kutsuvat set state hookia parametrina target.value */}
             <div>
                 <input type="text" value={newCustomerId} placeholder="ID with 5 capital letters" maxLength="5" minLength="5"
