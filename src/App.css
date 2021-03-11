@@ -1,6 +1,7 @@
 h3 {
   text-align: right;
   margin-right: 30%;
+  font-stretch: extra-condensed;
 }
 
 .App {
@@ -68,4 +69,30 @@ input {
   height: 30px;
   width: 50%;
   margin-bottom: 6px;
+}
+
+.neg {
+  color: red;
+  background: lightgrey;
+  font-size: 20px;
+  font-weight: bold;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  margin-top: 10%;
+  width: 70%;
+}
+
+.pos {
+  color: green;
+  background: lightgrey;
+  font-size: 30px;
+  font-weight: bold;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  margin-top: 10%;
+  width: 70%;
 }

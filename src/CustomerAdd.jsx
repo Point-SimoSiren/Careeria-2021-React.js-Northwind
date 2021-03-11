@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import './App.css'
 import CustomerService from './services/customer'
 
-const CustomerAdd = ({ setLisäystila, setCustomers, customers }) => {
+const CustomerAdd = ({ setLisäystila, setCustomers, customers, setMessage, setShowMessage,
+    setIsPositive }) => {
 
     // State määritykset
 
@@ -23,8 +24,8 @@ const CustomerAdd = ({ setLisäystila, setCustomers, customers }) => {
 
     const submitCustomer = (event) => {
         event.preventDefault()
-        let newCustomer = {
-            customerId: newCustomerId,
+        var newCustomer = {
+            customerId: newCustomerId.toUpperCase(),
             companyName: newCompanyName,
             contactName: newContactName,
             contactTitle: newContactTitle,
@@ -35,32 +36,37 @@ const CustomerAdd = ({ setLisäystila, setCustomers, customers }) => {
             phone: newPhone,
             fax: newFax
         }
-        console.log("objekti luotu: ", newCustomer)
 
         try {
             CustomerService // Käytetään services/customer tiedoston..
                 .create(newCustomer) // ..create metodia back-end http pyyntöön
-                .then(data => {
-                    alert('Added customer: ', data.companyName)
-                    setCustomers(customers.concat(data))
-                }
-                )
+                .then(response => console.log(response.data))
+            setMessage(`Lisätty ${newCustomer.companyName}`)
+            setIsPositive(true)
+            setShowMessage(true)
+            setCustomers(customers.concat(newCustomer))
+
+            setTimeout(() => {
+                setShowMessage(false)
+            },
+                6000
+            )
         }
         catch (e) {
-            alert("Error happened: ", e)
+            setMessage(`Tapahtui virhe: ${e}`)
+            setIsPositive(false)
+            setShowMessage(true)
+
+            setTimeout(() => {
+                setShowMessage(false)
+            },
+                6000
+            )
         }
         finally {
-            setNewCustomerId('')
-            setNewCompanyName('') // Input kenttien tyhjennys
-            setNewContactName('')
-            setNewContactTitle('')
-            setNewCountry('')
-            setNewAddress('')
-            setNewCity('')
-            setNewPostalCode('')
-            setNewPhone('')
-            setNewFax('')
+
             setLisäystila(false)
+
         }
     }
 
@@ -72,7 +78,7 @@ const CustomerAdd = ({ setLisäystila, setCustomers, customers }) => {
             {/* inputien tapahtumankäsittelijät on funktiota, jotka saa parametrikseen
             input elementin target tiedon. Funktiot kutsuvat set state hookia parametrina target.value */}
             <div>
-                <input type="text" value={newCustomerId} placeholder="ID with 5 capital letters" maxLength="5"
+                <input type="text" value={newCustomerId} placeholder="ID with 5 capital letters" maxLength="5" minLength="5"
                     onChange={({ target }) => setNewCustomerId(target.value)} />
             </div>
             <div>

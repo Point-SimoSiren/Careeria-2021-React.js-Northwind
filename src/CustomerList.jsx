@@ -4,7 +4,7 @@ import CustomerService from './services/customer'
 import Customer from './Customer'
 import CustomerAdd from './CustomerAdd'
 
-const CustomerList = () => {
+const CustomerList = ({ setMessage, setShowMessage, setIsPositive }) => {
 
     const [customers, setCustomers] = useState([])
     const [näytetäänkö, setNäytetäänkö] = useState(false)
@@ -15,17 +15,30 @@ const CustomerList = () => {
         CustomerService
             .getAll()
             .then(data => {
-                //console.log(data)
+                console.log(data)
                 setCustomers(data)
             })
-    }, [lisäysTila])
+    }, [näytetäänkö])
 
     //Hakukentän onChange tapahtumankäsittelijä
     const handleSearchInputChange = (event) => {
-        console.log(search)
         setNäytetäänkö(true)
         setSearch(event.target.value.toLowerCase())
     }
+
+    const handleDeleteClick = id => {
+        CustomerService.remove(id)
+            .then(promise => {
+                setCustomers(customers.filter(filtered => filtered.id !== id))
+                if (promise.status === 200) {
+                    alert("Asiakas poistettu")
+                }
+                setNäytetäänkö(false)
+                setNäytetäänkö(true)
+            }
+            )
+    }
+
 
     return (
         <>
@@ -43,7 +56,8 @@ const CustomerList = () => {
                     const lowerCaseName = customer.companyName.toLowerCase()
                     if (lowerCaseName.indexOf(search) > -1) {
                         return (
-                            <Customer key={customer.customerId} customer={customer} />
+                            <Customer key={customer.customerId} customer={customer}
+                                handleDeleteClick={handleDeleteClick} />
                         )
                     }
                 }
@@ -52,8 +66,8 @@ const CustomerList = () => {
 
             { !customers && <p>Loading...</p>}
 
-            {lisäysTila === true && <CustomerAdd setLisäystila={setLisäystila}
-                customers={customers} setCustomers={setCustomers} />}
+            {lisäysTila && <CustomerAdd setLisäystila={setLisäystila} customers={customers} setCustomers={setCustomers} setMessage={setMessage} setShowMessage={setShowMessage}
+                setIsPositive={setIsPositive} />}
 
         </>
     )
