@@ -16,8 +16,13 @@ const Customer = ({ customer, handleDeleteClick }) => {
             </table>
            */}
             <h3 onClick={() => setNäytäEnemmän(!näytäEnemmän)}>
-                {customer.companyName}<button onClick={() => handleDeleteClick(customer.customerId)}>Delete</button>
-                <button>Edit</button></h3>
+                {customer.companyName}
+
+                <button onClick={() => handleDeleteClick(customer.customerId)}>Delete</button>
+
+                <button>Edit</button>
+
+            </h3>
 
             {näytäEnemmän && <div className="customerWindow">
                 <table>

@@ -31,7 +31,14 @@ const CustomerList = ({ setMessage, setShowMessage, setIsPositive }) => {
             .then(promise => {
                 setCustomers(customers.filter(filtered => filtered.id !== id))
                 if (promise.status === 200) {
-                    alert("Asiakas poistettu") // Tähän voi laittaa saman alert logiikan kuin customer add:issa.
+                    setMessage('Poisto onnistui!')
+                    setIsPositive(true)
+                    setShowMessage(true)
+
+                    setTimeout(() => {
+                        setShowMessage(false)
+                    }, 5000
+                    )
                 }
                 setNäytetäänkö(false) // Vaihdetaan tila edestakaisin jotta saadaan listaus päivitettyä
                 setNäytetäänkö(true)
