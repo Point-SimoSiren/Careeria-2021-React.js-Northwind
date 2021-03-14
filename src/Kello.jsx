@@ -18,6 +18,7 @@ const Kello = ({ koko }) => {
     }, [])
 
     return (
+
         <div className="kello">
 
             <Clock value={value} size={koko} />
