@@ -37,54 +37,39 @@ const CustomerAdd = ({ setLisäystila, setCustomers, customers, setMessage, setS
             fax: newFax
         }
 
-        try {
-            CustomerService
-                .create(newCustomer)
-                .then(response => {
+        CustomerService
+            .create(newCustomer)
+            .then(response => {
 
-                    if (response.status === 200) {
-                        setCustomers(customers.concat(newCustomer))
-                        setMessage(`Lisätty ${newCustomer.companyName}`)
-                        setIsPositive(true)
-                        setShowMessage(true)
+                if (response.status === 200) {
+                    setCustomers(customers.concat(newCustomer))
+                    setMessage(`Lisätty ${newCustomer.companyName}`)
+                    setIsPositive(true)
+                    setShowMessage(true)
 
-                        setTimeout(() => {
-                            setShowMessage(false)
-                        }, 4000
-                        )
-                    }
-                    else {
-                        setMessage(`Tapahtui jokin virhe. Statuskoodi: ${response.status}`)
-                        setIsPositive(false)
-                        setShowMessage(true)
+                    setTimeout(() => {
+                        setShowMessage(false)
+                    }, 4000
+                    )
+                }
 
-                        setTimeout(() => {
-                            setShowMessage(false)
-                        },
-                            6000
-                        )
-                    }
-                })
-        }
-        catch (e) {
-            setMessage(`Tapahtui virhe: ${e}`)
-            setIsPositive(false)
-            setShowMessage(true)
+            })
+            .catch(error => {
+                setMessage(`Tapahtui virhe. Tässä lisätietoa: ${error}`)
+                setIsPositive(false)
+                setShowMessage(true)
 
-            setTimeout(() => {
-                setShowMessage(false)
-            },
-                6000
-            )
-        }
-        finally {
+                setTimeout(() => {
+                    setShowMessage(false)
+                }, 7000
+                )
+            })
 
-            setLisäystila(false)
+        setLisäystila(false)
 
-        }
     }
-
     // Komponentti palauttaa käyttöliittymään form elementin
+    // Lisätty required 2 ensimmäiseen inputiin
 
     return (
         <form onSubmit={submitCustomer}>

@@ -11,7 +11,8 @@ h3 {
   color: #282c34;
   margin-left: 10%;
   margin-right: 10%;
-  min-height: 700px;
+  margin-bottom: 200px;
+  min-height: 8000px;
   background-color: white;
 }
 
@@ -47,6 +48,7 @@ table, th, td {
   border-style: solid;
   width: 85%;
   margin: auto;
+  margin-bottom: 50px;
   border-radius: 30px;
 }
 

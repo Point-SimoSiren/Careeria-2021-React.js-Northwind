@@ -29,50 +29,44 @@ const CustomerList = ({ setMessage, setShowMessage, setIsPositive }) => {
     // Poisto on nyt korjattu (14.3.2021)
 
     const handleDeleteClick = id => {
-        try {
-            //Kaivetaan esiin customer olio jotta alertissa voidaan näyttää companyName id:n sijaan
-            const customer = customers.find(cust => cust.customerId === id)
-            CustomerService.remove(id)
-                .then(response => {
-                    if (response.status === 200) {
 
-                        // Poistetaan customer statesta
-                        setCustomers(customers.filter(filtered => filtered.customerId !== id))
+        //Kaivetaan esiin koko customer olio jotta alertissa voidaan näyttää companyName id:n sijaan
+        const customer = customers.find(cust => cust.customerId === id)
 
-                        setMessage(`${customer.companyName}:n poisto onnistui!`)
-                        setIsPositive(true)
-                        setShowMessage(true)
+        // Poiston varmistus kyselyikkuna
+        window.confirm(`Haluatko todella poistaa: ${customer.companyName}:n pysyvästi?`)
 
-                        setTimeout(() => {
-                            setShowMessage(false)
-                        }, 4000
-                        )
-                    }
-                    else {
-                        setMessage(`Tapahtui jokin virhe: Palvelin palautti koodin ${response.status}`)
-                        setIsPositive(false)
-                        setShowMessage(true)
+        CustomerService.remove(id)
+            .then(response => {
 
-                        setTimeout(() => {
-                            setShowMessage(false)
-                        }, 6000
-                        )
+                if (response.status === 200) {
+                    // Poistetaan customer statesta
+                    setCustomers(customers.filter(filtered => filtered.customerId !== id))
 
-                    }
+                    setMessage(`${customer.companyName}:n poisto onnistui!`)
+                    setIsPositive(true)
+                    setShowMessage(true)
+                    setNäytetäänkö(false)
 
-                })
+                    setTimeout(() => {
+                        setShowMessage(false)
+                    }, 4000
+                    )
+                }
 
-        }
-        catch (e) {
-            setMessage(`Tapahtui virhe: ${e}`)
-            setIsPositive(false)
-            setShowMessage(true)
+            })
 
-            setTimeout(() => {
-                setShowMessage(false)
-            }, 7000
-            )
-        }
+            .catch(error => {
+                setMessage(`Tapahtui virhe: ${error}. Onkohan asiakkaalla tilauksia?`)
+                setIsPositive(false)
+                setShowMessage(true)
+                setNäytetäänkö(false)
+
+                setTimeout(() => {
+                    setShowMessage(false)
+                }, 7000
+                )
+            })
 
     }
 
