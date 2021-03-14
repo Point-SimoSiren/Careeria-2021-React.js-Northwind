@@ -26,26 +26,37 @@ const CustomerList = ({ setMessage, setShowMessage, setIsPositive }) => {
         setSearch(event.target.value.toLowerCase())
     }
 
+    // Poisto on nyt korjattu ja tehty try catch käsittelykin customoidulla alertilla
+
     const handleDeleteClick = id => {
-        CustomerService.remove(id)
-            .then(promise => {
-                setCustomers(customers.filter(filtered => filtered.id !== id))
-                if (promise.status === 200) {
-                    setMessage('Poisto onnistui!')
-                    setIsPositive(true)
-                    setShowMessage(true)
+        try {
+            CustomerService.remove(id)
+                .then(promise => {
+                    setCustomers(customers.filter(filtered => filtered.customerId !== id))
+                    if (promise.status === 200) {
+                        setMessage('Poisto onnistui!')
+                        setIsPositive(true)
+                        setShowMessage(true)
 
-                    setTimeout(() => {
-                        setShowMessage(false)
-                    }, 5000
-                    )
-                }
-                setNäytetäänkö(false) // Vaihdetaan tila edestakaisin jotta saadaan listaus päivitettyä
-                setNäytetäänkö(true)
-            }
+                        setTimeout(() => {
+                            setShowMessage(false)
+                        }, 5000
+                        )
+                    }
+                })
+        }
+        catch (e) {
+            setMessage(`Tapahtui virhe: ${e}`)
+            setIsPositive(false)
+            setShowMessage(true)
+
+            setTimeout(() => {
+                setShowMessage(false)
+            }, 5000
             )
-    }
+        }
 
+    }
 
     return (
         <>
