@@ -53,6 +53,9 @@ const CustomerAdd = ({ setLisäystila, setCustomers, customers, setMessage, setS
                         }, 4000
                         )
                     }
+
+                    // Lisäyksen koodia on korjattu virhekoodien osalta (14.3.2021)
+
                     else {
                         setMessage(`Tapahtui jokin virhe. Statuskoodi: ${response.status}`)
                         setIsPositive(false)
