@@ -34,40 +34,52 @@ const CustomerList = ({ setMessage, setShowMessage, setIsPositive }) => {
         const customer = customers.find(cust => cust.customerId === id)
 
         // Poiston varmistus kyselyikkuna
-        window.confirm(`Haluatko todella poistaa: ${customer.companyName}:n pysyvästi?`)
+        const confirm = window.confirm(`Haluatko todella poistaa: ${customer.companyName}:n pysyvästi?`)
 
-        CustomerService.remove(id)
-            .then(response => {
+        if (confirm) {
 
-                if (response.status === 200) {
-                    // Poistetaan customer statesta
-                    setCustomers(customers.filter(filtered => filtered.customerId !== id))
+            CustomerService.remove(id)
+                .then(response => {
 
-                    setMessage(`${customer.companyName}:n poisto onnistui!`)
-                    setIsPositive(true)
+                    if (response.status === 200) {
+                        // Poistetaan customer statesta
+                        setCustomers(customers.filter(filtered => filtered.customerId !== id))
+
+                        setMessage(`${customer.companyName}:n poisto onnistui!`)
+                        setIsPositive(true)
+                        setShowMessage(true)
+                        setNäytetäänkö(false)
+
+                        setTimeout(() => {
+                            setShowMessage(false)
+                        }, 4000
+                        )
+                    }
+
+                })
+
+                .catch(error => {
+                    setMessage(`Tapahtui virhe: ${error}. Onkohan asiakkaalla tilauksia?`)
+                    setIsPositive(false)
                     setShowMessage(true)
                     setNäytetäänkö(false)
 
                     setTimeout(() => {
                         setShowMessage(false)
-                    }, 4000
+                    }, 7000
                     )
-                }
+                })
+        }
+        else { // JOS KÄYTTÄJÄ EI VAHVISTA POISTOA:
+            setMessage('Poisto peruutettu')
+            setIsPositive(true)
+            setShowMessage(true)
 
-            })
-
-            .catch(error => {
-                setMessage(`Tapahtui virhe: ${error}. Onkohan asiakkaalla tilauksia?`)
-                setIsPositive(false)
-                setShowMessage(true)
-                setNäytetäänkö(false)
-
-                setTimeout(() => {
-                    setShowMessage(false)
-                }, 7000
-                )
-            })
-
+            setTimeout(() => {
+                setShowMessage(false)
+            }, 4000
+            )
+        }
     }
 
     return (
