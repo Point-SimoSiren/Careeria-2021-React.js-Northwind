@@ -49,7 +49,7 @@ const CustomerList = ({ setMessage, setShowMessage, setIsPositive }) => {
                         )
                     }
                     else {
-                        setMessage(`Tapahtui jokin virhe: Palvelin palautti koodin ${response.status}`)
+                        setMessage(`Tapahtui jokin virhe: Statuskoodi: ${response.status}`)
                         setIsPositive(false)
                         setShowMessage(true)
 
