@@ -15,7 +15,9 @@ const Customer = ({ customer, handleDeleteClick }) => {
                 </tr>
             </table>
            */}
-            <h3 onClick={() => setNäytäEnemmän(!näytäEnemmän)}>
+            <h3
+                onMouseOver={() => setNäytäEnemmän(true)}
+                onMouseLeave={() => setNäytäEnemmän(false)}>
                 {customer.companyName}
 
                 <button onClick={() => handleDeleteClick(customer.customerId)}>Delete</button>

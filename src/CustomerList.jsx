@@ -26,24 +26,42 @@ const CustomerList = ({ setMessage, setShowMessage, setIsPositive }) => {
         setSearch(event.target.value.toLowerCase())
     }
 
-    // Poisto on nyt korjattu ja tehty try catch käsittelykin customoidulla alertilla
+    // Poisto on nyt korjattu (14.3.2021)
 
     const handleDeleteClick = id => {
         try {
+            //Kaivetaan esiin customer olio jotta alertissa voidaan näyttää companyName id:n sijaan
+            const customer = customers.find(cust => cust.customerId === id)
             CustomerService.remove(id)
-                .then(promise => {
-                    setCustomers(customers.filter(filtered => filtered.customerId !== id))
-                    if (promise.status === 200) {
-                        setMessage('Poisto onnistui!')
+                .then(response => {
+                    if (response.status === 200) {
+
+                        // Poistetaan customer statesta
+                        setCustomers(customers.filter(filtered => filtered.customerId !== id))
+
+                        setMessage(`${customer.companyName}:n poisto onnistui!`)
                         setIsPositive(true)
                         setShowMessage(true)
 
                         setTimeout(() => {
                             setShowMessage(false)
-                        }, 5000
+                        }, 4000
                         )
                     }
+                    else {
+                        setMessage(`Tapahtui jokin virhe: Palvelin palautti koodin ${response.status}`)
+                        setIsPositive(false)
+                        setShowMessage(true)
+
+                        setTimeout(() => {
+                            setShowMessage(false)
+                        }, 6000
+                        )
+
+                    }
+
                 })
+
         }
         catch (e) {
             setMessage(`Tapahtui virhe: ${e}`)
@@ -52,7 +70,7 @@ const CustomerList = ({ setMessage, setShowMessage, setIsPositive }) => {
 
             setTimeout(() => {
                 setShowMessage(false)
-            }, 5000
+            }, 7000
             )
         }
 

@@ -2,6 +2,7 @@ h3 {
   text-align: right;
   margin-right: 30%;
   font-stretch: extra-condensed;
+  cursor: pointer;
 }
 
 .App {
