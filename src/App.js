@@ -15,7 +15,7 @@ const App = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <h2 onClick={() => setClock(!clock)}>Northwind Traders Limited</h2>
+        <marquee><h2 onClick={() => setClock(!clock)}>Northwind Traders Limited</h2></marquee>
       </header>
 
       { showMessage &&
