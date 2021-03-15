@@ -49,6 +49,7 @@ const CustomerList = ({ setMessage, setShowMessage, setIsPositive }) => {
                         setIsPositive(true)
                         setShowMessage(true)
                         setNäytetäänkö(false)
+                        window.scrollBy(0, -10000) // Scrollataan ylös jotta nähdään alert :)
 
                         setTimeout(() => {
                             setShowMessage(false)
@@ -70,7 +71,7 @@ const CustomerList = ({ setMessage, setShowMessage, setIsPositive }) => {
                     )
                 })
         }
-        else { // JOS KÄYTTÄJÄ EI VAHVISTA POISTOA:
+        else { // JOS KÄYTTÄJÄ EI VAHVISTANUT POISTOA:
             setMessage('Poisto peruutettu')
             setIsPositive(true)
             setShowMessage(true)
