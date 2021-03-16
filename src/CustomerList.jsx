@@ -3,13 +3,16 @@ import './App.css'
 import CustomerService from './services/customer'
 import Customer from './Customer'
 import CustomerAdd from './CustomerAdd'
+import CustomerEdit from './CustomerEdit'
 
 const CustomerList = ({ setMessage, setShowMessage, setIsPositive }) => {
 
-    const [customers, setCustomers] = useState([])
+    const [customers, setCustomers] = useState([]) // taulukollinen customer olioita
     const [näytetäänkö, setNäytetäänkö] = useState(false)
     const [search, setSearch] = useState("")
     const [lisäysTila, setLisäystila] = useState(false)
+    const [muokkausTila, setMuokkaustila] = useState(false)
+    const [muokattavaCustomer, setMuokattavaCustomer] = useState({}) // yksi customer olio
 
     useEffect(() => {
         CustomerService
@@ -83,6 +86,10 @@ const CustomerList = ({ setMessage, setShowMessage, setIsPositive }) => {
         }
     }
 
+    const handleEditClick = customer => {
+
+    }
+
     return (
         <>
             <h1><nobr style={{ cursor: 'pointer' }}
@@ -91,17 +98,17 @@ const CustomerList = ({ setMessage, setShowMessage, setIsPositive }) => {
                 <button onClick={() => setLisäystila(true)}>Add new</button></h1>
 
 
-            {!lisäysTila &&
+            {!lisäysTila && !muokkausTila &&
                 <input placeholder="Search by company name" value={search} onChange={handleSearchInputChange} />
             }
 
             {
-                customers && näytetäänkö === true && lisäysTila === false && customers.map(customer => {
+                customers && näytetäänkö && !lisäysTila && !muokkausTila && customers.map(customer => {
                     const lowerCaseName = customer.companyName.toLowerCase()
                     if (lowerCaseName.indexOf(search) > -1) {
                         return (
                             <Customer key={customer.customerId} customer={customer}
-                                handleDeleteClick={handleDeleteClick} />
+                                handleDeleteClick={handleDeleteClick} handleEditClick={handleEditClick} />
                         )
                     }
                 }
@@ -111,6 +118,9 @@ const CustomerList = ({ setMessage, setShowMessage, setIsPositive }) => {
             { !customers && <p>Loading...</p>}
 
             {lisäysTila && <CustomerAdd setLisäystila={setLisäystila} customers={customers} setCustomers={setCustomers} setMessage={setMessage} setShowMessage={setShowMessage}
+                setIsPositive={setIsPositive} />}
+
+            {muokkausTila && <CustomerEdit setMuokkaustila={setMuokkaustila} customers={customers} setCustomers={setCustomers} setMessage={setMessage} setShowMessage={setShowMessage}
                 setIsPositive={setIsPositive} />}
 
         </>

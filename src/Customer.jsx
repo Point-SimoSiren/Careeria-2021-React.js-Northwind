@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './App.css'
 
-const Customer = ({ customer, handleDeleteClick }) => {
+const Customer = ({ customer, handleDeleteClick, handleEditClick }) => {
 
     const [näytäEnemmän, setNäytäEnemmän] = useState(false)
 
@@ -17,7 +17,7 @@ const Customer = ({ customer, handleDeleteClick }) => {
 
                 <button onClick={() => handleDeleteClick(customer.customerId)}>Delete</button>
 
-                <button>Edit</button>
+                <button onClick={() => handleEditClick(customer)}>Edit</button>
 
             </h3>
 

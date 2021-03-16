@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './App.css'
 import CustomerService from './services/customer'
 
-const CustomerEdit = ({ setEditTila, setCustomers, customers, setMessage, setShowMessage,
+const CustomerEdit = ({ setMuokkaustila, setCustomers, customers, setMessage, setShowMessage,
     setIsPositive }) => {
 
     // State määritykset
@@ -38,7 +38,7 @@ const CustomerEdit = ({ setEditTila, setCustomers, customers, setMessage, setSho
         }
 
         CustomerService
-            .update(changedCustomer) // Put pyyntö back-endille
+            .update(changedCustomer.customerId, changedCustomer) // Put pyyntö back-endille
             .then(response => {
 
                 if (response.status === 200) {
@@ -49,9 +49,9 @@ const CustomerEdit = ({ setEditTila, setCustomers, customers, setMessage, setSho
                     setCustomers(customers.filter(filtered => filtered.customerId !== id))
 
                     // Ja lisätään uudestaan muuttuneilla tiedoilla
-                    setCustomers(customers.concat(newCustomer))
+                    setCustomers(customers.concat(changedCustomer))
 
-                    setMessage(`Päivitetty ${newCustomer.companyName}`)
+                    setMessage(`Päivitetty ${changedCustomer.companyName}`)
                     setIsPositive(true)
                     setShowMessage(true)
 
@@ -73,7 +73,7 @@ const CustomerEdit = ({ setEditTila, setCustomers, customers, setMessage, setSho
                 )
             })
 
-        setEditTila(false)
+        setMuokkaustila(false)
 
     }
     // Komponentti palauttaa käyttöliittymään form elementin
@@ -85,7 +85,7 @@ const CustomerEdit = ({ setEditTila, setCustomers, customers, setMessage, setSho
             {/* inputien tapahtumankäsittelijöissä on määritelty funktio, jotka saa parametrikseen kyseisen
             input elementin target tiedon. Funktiot kutsuvat set state hookia parametrina target.value */}
             <div>
-                <input type="text" value={customerToEdit.newCustomerId} placeholder="ID with 5 capital letters" maxLength="5" minLength="5"
+                <input type="text" value={newCustomerId} placeholder="ID with 5 capital letters" maxLength="5" minLength="5"
                     onChange={({ target }) => setNewCustomerId(target.value)} required />
             </div>
             <div>
@@ -127,7 +127,7 @@ const CustomerEdit = ({ setEditTila, setCustomers, customers, setMessage, setSho
 
             <button type="submit" style={{ background: 'green' }}>Create</button>
 
-            <button onClick={() => setLisäystila(false)} style={{ background: 'red' }}>
+            <button onClick={() => setMuokkaustila(false)} style={{ background: 'red' }}>
                 Cancel</button>
         </form>
     )
