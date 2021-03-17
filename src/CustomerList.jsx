@@ -29,6 +29,7 @@ const CustomerList = ({ setMessage, setShowMessage, setIsPositive }) => {
         setSearch(event.target.value.toLowerCase())
     }
 
+
     // Poisto on nyt korjattu (14.3.2021)
 
     const handleDeleteClick = id => {
