@@ -3,7 +3,7 @@ import './App.css'
 import CustomerService from './services/customer'
 
 const CustomerEdit = ({ setMuokkaustila, setCustomers, customers, setMessage, setShowMessage,
-    setIsPositive }) => {
+    setIsPositive, muokattavaCustomer }) => {
 
     // State määritykset
 

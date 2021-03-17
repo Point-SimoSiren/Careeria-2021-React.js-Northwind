@@ -18,7 +18,6 @@ const CustomerList = ({ setMessage, setShowMessage, setIsPositive }) => {
         CustomerService
             .getAll()
             .then(data => {
-                console.log(data)
                 setCustomers(data)
             })
     }, [lisäysTila, näytetäänkö])
@@ -87,7 +86,11 @@ const CustomerList = ({ setMessage, setShowMessage, setIsPositive }) => {
         }
     }
 
+    // EDIT buttonin tapahtumankäsittelijä saa parametrin customer componentista
     const handleEditClick = customer => {
+
+        setMuokattavaCustomer(customer)
+        setMuokkaustila(true)
 
     }
 
@@ -121,7 +124,7 @@ const CustomerList = ({ setMessage, setShowMessage, setIsPositive }) => {
             {lisäysTila && <CustomerAdd setLisäystila={setLisäystila} customers={customers} setCustomers={setCustomers} setMessage={setMessage} setShowMessage={setShowMessage}
                 setIsPositive={setIsPositive} />}
 
-            {muokkausTila && <CustomerEdit setMuokkaustila={setMuokkaustila} customers={customers} setCustomers={setCustomers} setMessage={setMessage} setShowMessage={setShowMessage}
+            {muokkausTila && <CustomerEdit setMuokkaustila={setMuokkaustila} muokattavaCustomer={muokattavaCustomer} customers={customers} setCustomers={setCustomers} setMessage={setMessage} setShowMessage={setShowMessage}
                 setIsPositive={setIsPositive} />}
 
         </>
