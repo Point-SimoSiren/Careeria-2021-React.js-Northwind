@@ -2,29 +2,29 @@ import React, { useState } from 'react'
 import './App.css'
 import CustomerService from './services/customer'
 
-const CustomerAdd = ({ setLisäystila, setCustomers, customers, setMessage, setShowMessage,
-    setIsPositive }) => {
+const CustomerEdit = ({ setMuokkaustila, setCustomers, customers, setMessage, setShowMessage,
+    setIsPositive, muokattavaCustomer }) => {
 
     // State määritykset
 
-    const [newCustomerId, setNewCustomerId] = useState('')
-    const [newCompanyName, setNewCompanyName] = useState('')
-    const [newContactName, setNewContactName] = useState('')
-    const [newContactTitle, setNewContactTitle] = useState('')
+    const [newCustomerId, setNewCustomerId] = useState(muokattavaCustomer.customerId)
+    const [newCompanyName, setNewCompanyName] = useState(muokattavaCustomer.companyName)
+    const [newContactName, setNewContactName] = useState(muokattavaCustomer.contactName)
+    const [newContactTitle, setNewContactTitle] = useState(muokattavaCustomer.contactTitle)
 
-    const [newCountry, setNewCountry] = useState('')
-    const [newAddress, setNewAddress] = useState('')
-    const [newCity, setNewCity] = useState('')
+    const [newCountry, setNewCountry] = useState(muokattavaCustomer.country)
+    const [newAddress, setNewAddress] = useState(muokattavaCustomer.address)
+    const [newCity, setNewCity] = useState(muokattavaCustomer.city)
 
-    const [newPostalCode, setNewPostalCode] = useState('')
-    const [newPhone, setNewPhone] = useState('')
-    const [newFax, setNewFax] = useState('')
+    const [newPostalCode, setNewPostalCode] = useState(muokattavaCustomer.postalCode)
+    const [newPhone, setNewPhone] = useState(muokattavaCustomer.phone)
+    const [newFax, setNewFax] = useState(muokattavaCustomer.fax)
 
-    // Lomakkeen onSubmit tapahtumankäsittelijä
+    // Muokkauslomakkeen onSubmit tapahtumankäsittelijä
 
     const submitCustomer = (event) => {
         event.preventDefault()
-        var newCustomer = {
+        var changedCustomer = {
             customerId: newCustomerId.toUpperCase(),
             companyName: newCompanyName,
             contactName: newContactName,
@@ -38,12 +38,20 @@ const CustomerAdd = ({ setLisäystila, setCustomers, customers, setMessage, setS
         }
 
         CustomerService
-            .create(newCustomer)
+            .update(changedCustomer) // Put pyyntö back-endille
             .then(response => {
 
                 if (response.status === 200) {
-                    setCustomers(customers.concat(newCustomer))
-                    setMessage(`Lisätty ${newCustomer.companyName}`)
+
+                    const id = changedCustomer.customerId
+
+                    // Poistetaan ensin vanha customer statesta
+                    setCustomers(customers.filter(filtered => filtered.customerId !== id))
+
+                    // Ja lisätään uudestaan muuttuneilla tiedoilla
+                    setCustomers(customers.concat(changedCustomer))
+
+                    setMessage(`Päivitetty ${changedCustomer.companyName}`)
                     setIsPositive(true)
                     setShowMessage(true)
 
@@ -65,11 +73,11 @@ const CustomerAdd = ({ setLisäystila, setCustomers, customers, setMessage, setS
                 )
             })
 
-
         setTimeout(() => {
-            setLisäystila(false)
+            setMuokkaustila(false)
         }, 500
         )
+
 
     }
     // Komponentti palauttaa käyttöliittymään form elementin
@@ -121,12 +129,12 @@ const CustomerAdd = ({ setLisäystila, setCustomers, customers, setMessage, setS
                     onChange={({ target }) => setNewFax(target.value)} />
             </div>
 
-            <button type="submit" style={{ background: 'green' }}>Create</button>
+            <button type="submit" style={{ background: 'green' }}>Save</button>
 
-            <button onClick={() => setLisäystila(false)} style={{ background: 'red' }}>
+            <button onClick={() => setMuokkaustila(false)} style={{ background: 'red' }}>
                 Cancel</button>
         </form>
     )
 }
 
-export default CustomerAdd
+export default CustomerEdit

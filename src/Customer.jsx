@@ -1,28 +1,23 @@
 import React, { useState } from 'react'
 import './App.css'
 
-const Customer = ({ customer, handleDeleteClick }) => {
+const Customer = ({ customer, handleDeleteClick, handleEditClick }) => {
 
     const [näytäEnemmän, setNäytäEnemmän] = useState(false)
 
     return (
         <>
-            {/* <table>
-                <tr><td>
-                    <h3 onClick={() => setNäytäEnemmän(!näytäEnemmän)}>
-                        {customer.companyName}</h3></td> <td><button onClick={() => handleDeleteClick(customer.customerId)}>Delete</button></td>
-                    <td><button>Edit</button></td>
-                </tr>
-            </table>
-           */}
-            <h3
+            <h3><nobr
                 onMouseOver={() => setNäytäEnemmän(true)}
-                onMouseLeave={() => setNäytäEnemmän(false)}>
+                onMouseLeave={() => setNäytäEnemmän(false)}
+            >
                 {customer.companyName}
+
+            </nobr>
 
                 <button onClick={() => handleDeleteClick(customer.customerId)}>Delete</button>
 
-                <button>Edit</button>
+                <button onClick={() => handleEditClick(customer)}>Edit</button>
 
             </h3>
 
