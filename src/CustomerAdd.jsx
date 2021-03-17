@@ -65,7 +65,11 @@ const CustomerAdd = ({ setLisäystila, setCustomers, customers, setMessage, setS
                 )
             })
 
-        setLisäystila(false)
+
+        setTimeout(() => {
+            setLisäystila(false)
+        }, 500
+        )
 
     }
     // Komponentti palauttaa käyttöliittymään form elementin

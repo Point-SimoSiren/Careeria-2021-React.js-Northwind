@@ -14,7 +14,7 @@ const create = newCustomer => {
 const remove = id => axios.delete(`${baseUrl}/${id}`)
 
 const update = changedCustomer => {
-    return axios.put(`${baseUrl}/${changedCustomer.id}`, changedCustomer)
+    return axios.put(`${baseUrl}/${changedCustomer.customerId}`, changedCustomer)
 }
 
 

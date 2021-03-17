@@ -7,18 +7,18 @@ const CustomerEdit = ({ setMuokkaustila, setCustomers, customers, setMessage, se
 
     // State määritykset
 
-    const [newCustomerId, setNewCustomerId] = useState('')
-    const [newCompanyName, setNewCompanyName] = useState('')
-    const [newContactName, setNewContactName] = useState('')
-    const [newContactTitle, setNewContactTitle] = useState('')
+    const [newCustomerId, setNewCustomerId] = useState(muokattavaCustomer.customerId)
+    const [newCompanyName, setNewCompanyName] = useState(muokattavaCustomer.companyName)
+    const [newContactName, setNewContactName] = useState(muokattavaCustomer.contactName)
+    const [newContactTitle, setNewContactTitle] = useState(muokattavaCustomer.contactTitle)
 
-    const [newCountry, setNewCountry] = useState('')
-    const [newAddress, setNewAddress] = useState('')
-    const [newCity, setNewCity] = useState('')
+    const [newCountry, setNewCountry] = useState(muokattavaCustomer.country)
+    const [newAddress, setNewAddress] = useState(muokattavaCustomer.address)
+    const [newCity, setNewCity] = useState(muokattavaCustomer.city)
 
-    const [newPostalCode, setNewPostalCode] = useState('')
-    const [newPhone, setNewPhone] = useState('')
-    const [newFax, setNewFax] = useState('')
+    const [newPostalCode, setNewPostalCode] = useState(muokattavaCustomer.postalCode)
+    const [newPhone, setNewPhone] = useState(muokattavaCustomer.phone)
+    const [newFax, setNewFax] = useState(muokattavaCustomer.fax)
 
     // Muokkauslomakkeen onSubmit tapahtumankäsittelijä
 
@@ -38,7 +38,7 @@ const CustomerEdit = ({ setMuokkaustila, setCustomers, customers, setMessage, se
         }
 
         CustomerService
-            .update(changedCustomer.customerId, changedCustomer) // Put pyyntö back-endille
+            .update(changedCustomer) // Put pyyntö back-endille
             .then(response => {
 
                 if (response.status === 200) {
@@ -73,7 +73,11 @@ const CustomerEdit = ({ setMuokkaustila, setCustomers, customers, setMessage, se
                 )
             })
 
-        setMuokkaustila(false)
+        setTimeout(() => {
+            setMuokkaustila(false)
+        }, 500
+        )
+
 
     }
     // Komponentti palauttaa käyttöliittymään form elementin
@@ -125,7 +129,7 @@ const CustomerEdit = ({ setMuokkaustila, setCustomers, customers, setMessage, se
                     onChange={({ target }) => setNewFax(target.value)} />
             </div>
 
-            <button type="submit" style={{ background: 'green' }}>Create</button>
+            <button type="submit" style={{ background: 'green' }}>Save</button>
 
             <button onClick={() => setMuokkaustila(false)} style={{ background: 'red' }}>
                 Cancel</button>

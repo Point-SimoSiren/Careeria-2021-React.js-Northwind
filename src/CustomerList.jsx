@@ -20,7 +20,7 @@ const CustomerList = ({ setMessage, setShowMessage, setIsPositive }) => {
             .then(data => {
                 setCustomers(data)
             })
-    }, [lisäysTila, näytetäänkö])
+    }, [lisäysTila, näytetäänkö, muokkausTila])
 
     //Hakukentän onChange tapahtumankäsittelijä
     const handleSearchInputChange = (event) => {
