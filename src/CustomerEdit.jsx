@@ -129,9 +129,9 @@ const CustomerEdit = ({ setMuokkaustila, setCustomers, customers, setMessage, se
                     onChange={({ target }) => setNewFax(target.value)} />
             </div>
 
-            <button type="submit" style={{ background: 'green' }}>Save</button>
+            <button className="nappi" type="submit" style={{ background: 'green' }}>Save</button>
 
-            <button onClick={() => setMuokkaustila(false)} style={{ background: 'red' }}>
+            <button className="nappi" onClick={() => setMuokkaustila(false)} style={{ background: 'red' }}>
                 Cancel</button>
         </form>
     )

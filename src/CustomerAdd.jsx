@@ -121,9 +121,9 @@ const CustomerAdd = ({ setLisäystila, setCustomers, customers, setMessage, setS
                     onChange={({ target }) => setNewFax(target.value)} />
             </div>
 
-            <button type="submit" style={{ background: 'green' }}>Create</button>
+            <button className="nappi" type="submit" style={{ background: 'green' }}>Create</button>
 
-            <button onClick={() => setLisäystila(false)} style={{ background: 'red' }}>
+            <button className="nappi" onClick={() => setLisäystila(false)} style={{ background: 'red' }}>
                 Cancel</button>
         </form>
     )
