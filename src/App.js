@@ -3,31 +3,50 @@ import './App.css'
 import CustomerList from './CustomerList'
 import Kello from './Kello'
 import Message from './Message'
+import LoginList from './LoginList'
+
+import Navbar from 'react-bootstrap/Navbar'
+import Nav from 'react-bootstrap/Nav'
+import 'bootstrap/dist/css/bootstrap.min.css'
+
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
 const App = () => {
 
   const [clock, setClock] = useState(false)
-
-  const [showMessage, setShowMessage] = useState(false)
-  const [isPositive, setIsPositive] = useState(false)
-  const [message, setMessage] = useState('')
 
   return (
     <div className="App">
       <header className="App-header">
         <marquee><h2 onClick={() => setClock(!clock)}>Northwind Traders Limited</h2></marquee>
       </header>
+      <Router>
+        <Navbar bg="primary" variant="dark">
+          <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+          <Nav className="mr-auto">
+            <Link to={'/Customers'} className='nav-link'>Customers</Link>
 
-      { showMessage &&
-        <Message message={message} isPositive={isPositive} />
-      }
+            <Link to={'/Logins'} className='nav-link'>Logins</Link>
 
-      {clock && <Kello koko={500} />}
+            <Link to={'/Products'} className='nav-link'>Products</Link>
+            <Link to={'/Employees'} className='nav-link'>Employees</Link>
+          </Nav>
+        </Navbar>
 
-      {!clock && <CustomerList setShowMessage={setShowMessage} setIsPositive={setIsPositive}
-        setMessage={setMessage} />}
+        <Switch>
+          <Route path='/Customers' component={CustomerList} />
+          <Route path='/Logins' component={LoginList} />
+          <Route path='/Products' component={LoginList} />
+          <Route path='/Employees' component={LoginList} />
 
-    </div>
+        </Switch>
+
+      </Router>
+
+
+      {clock && <Kello koko={400} />}
+
+    </div >
   )
 }
 
