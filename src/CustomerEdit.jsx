@@ -72,6 +72,9 @@ const CustomerEdit = ({ setMuokkaustila, setCustomers, customers, setMessage, se
                 }, 7000
                 )
             })
+        
+        // Tämä setTimout on lisätty myös CustomerAdd tiedostoon. Annetaan 0,5sek aikaa tietokannalle tallettaa
+        // ennenkuin palataan asiakkaiden listausnäkymään. Silloin saadaan listaus ajantasaiseksi.
 
         setTimeout(() => {
             setMuokkaustila(false)
