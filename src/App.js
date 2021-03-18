@@ -1,16 +1,20 @@
 import React, { useState } from 'react'
 import './App.css'
 import CustomerList from './CustomerList'
+import ProductList from './ProductList'
+import LoginList from './LoginList'
+import EmployeeList from './EmployeeList'
 import Kello from './Kello'
-import Message from './Message'
+
+import Navbar from 'react-bootstrap/Navbar'
+import Nav from 'react-bootstrap/Nav'
+import 'bootstrap/dist/css/bootstrap.min.css'
+
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
 const App = () => {
 
   const [clock, setClock] = useState(false)
-
-  const [showMessage, setShowMessage] = useState(false)
-  const [isPositive, setIsPositive] = useState(false)
-  const [message, setMessage] = useState('')
 
   return (
     <div className="App">
@@ -18,16 +22,32 @@ const App = () => {
         <marquee><h2 onClick={() => setClock(!clock)}>Northwind Traders Limited</h2></marquee>
       </header>
 
-      { showMessage &&
-        <Message message={message} isPositive={isPositive} />
-      }
+      <Router>
 
-      {clock && <Kello koko={500} />}
+        <Navbar bg="dark" variant="dark">
+          <Navbar.Brand href="#home">Alkusivu tulossa</Navbar.Brand>
 
-      {!clock && <CustomerList setShowMessage={setShowMessage} setIsPositive={setIsPositive}
-        setMessage={setMessage} />}
+          <Nav className="mr-auto">
+            <Link to={'/Customers'} className='nav-link'>Customers</Link>
+            <Link to={'/Logins'} className='nav-link'>Logins</Link>
 
-    </div>
+            <Link to={'/Products'} className='nav-link'>Products</Link>
+            <Link to={'/Employees'} className='nav-link'>Employees</Link>
+          </Nav>
+        </Navbar>
+
+        <Switch>
+          <Route path='/Customers' component={CustomerList} />
+          <Route path='/Logins' component={LoginList} />
+          <Route path='/Products' component={ProductList} />
+          <Route path='/Employees' component={EmployeeList} />
+        </Switch>
+
+      </Router>
+
+      {clock && <Kello koko={400} />}
+
+    </div >
   )
 }
 
