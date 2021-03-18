@@ -15,9 +15,9 @@ const Customer = ({ customer, handleDeleteClick, handleEditClick }) => {
 
             </nobr>
 
-                <button onClick={() => handleDeleteClick(customer.customerId)}>Delete</button>
+                <button className="nappi" onClick={() => handleDeleteClick(customer.customerId)}>Delete</button>
 
-                <button onClick={() => handleEditClick(customer)}>Edit</button>
+                <button className="nappi" onClick={() => handleEditClick(customer)}>Edit</button>
 
             </h3>
 
