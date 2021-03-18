@@ -5,7 +5,7 @@ const ProductList = () => {
 
     return (
         <>
-            <h1>Products</h1>
+            <h1>Products aihio</h1>
         </>
     )
 }

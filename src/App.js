@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import './App.css'
 import CustomerList from './CustomerList'
-import Kello from './Kello'
-import Message from './Message'
+import ProductList from './ProductList'
 import LoginList from './LoginList'
+import EmployeeList from './EmployeeList'
+import Kello from './Kello'
 
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
@@ -20,12 +21,14 @@ const App = () => {
       <header className="App-header">
         <marquee><h2 onClick={() => setClock(!clock)}>Northwind Traders Limited</h2></marquee>
       </header>
+
       <Router>
-        <Navbar bg="primary" variant="dark">
-          <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+
+        <Navbar bg="dark" variant="dark">
+          <Navbar.Brand href="#home">Alkusivu tulossa</Navbar.Brand>
+
           <Nav className="mr-auto">
             <Link to={'/Customers'} className='nav-link'>Customers</Link>
-
             <Link to={'/Logins'} className='nav-link'>Logins</Link>
 
             <Link to={'/Products'} className='nav-link'>Products</Link>
@@ -36,13 +39,11 @@ const App = () => {
         <Switch>
           <Route path='/Customers' component={CustomerList} />
           <Route path='/Logins' component={LoginList} />
-          <Route path='/Products' component={LoginList} />
-          <Route path='/Employees' component={LoginList} />
-
+          <Route path='/Products' component={ProductList} />
+          <Route path='/Employees' component={EmployeeList} />
         </Switch>
 
       </Router>
-
 
       {clock && <Kello koko={400} />}
 

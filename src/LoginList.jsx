@@ -5,7 +5,7 @@ const LoginList = () => {
 
     return (
         <>
-            <h1>Logins</h1>
+            <h1>Logins aihio</h1>
         </>
     )
 }
