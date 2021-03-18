@@ -5,7 +5,9 @@ import CustomerService from './services/customer'
 const CustomerEdit = ({ setMuokkaustila, setCustomers, customers, setMessage, setShowMessage,
     setIsPositive, muokattavaCustomer }) => {
 
-    // State määritykset
+    // Edit komponentin State määritykset. Alkutila otetaan propsina saadusta MuokattavaCustomer oliosta (yläpuolella oleva rivi).
+    // Se alkutila tulee myös input kenttiin alkutilaksi, koska input kentän sisältö on sidottu näihin state:hin.
+    // Input kentän muutos muuttaa kyseistä statea samoin kuin add komponentissakin tapahtui.
 
     const [newCustomerId, setNewCustomerId] = useState(muokattavaCustomer.customerId)
     const [newCompanyName, setNewCompanyName] = useState(muokattavaCustomer.companyName)
@@ -20,7 +22,7 @@ const CustomerEdit = ({ setMuokkaustila, setCustomers, customers, setMessage, se
     const [newPhone, setNewPhone] = useState(muokattavaCustomer.phone)
     const [newFax, setNewFax] = useState(muokattavaCustomer.fax)
 
-    // Muokkauslomakkeen onSubmit tapahtumankäsittelijä
+    // Muokkauslomakkeen onSubmit tapahtumankäsittelijä. Tämä koodi ajetaan kun painetaan talleta / save nappia.
 
     const submitCustomer = (event) => {
         event.preventDefault()
@@ -84,7 +86,10 @@ const CustomerEdit = ({ setMuokkaustila, setCustomers, customers, setMessage, se
 
     }
     // Komponentti palauttaa käyttöliittymään form elementin
-    // Lisätty required 2 ensimmäiseen inputiin
+    // Lisätty required 2 ensimmäiseen inputiin, samoin kuin add komponentissakin. Näin ei voida luoda täysin tyhjiä customereita.
+    // Eikä sotkea ID:tä.
+    //TODO:
+    //Itseasiassa ID pitäisi olla tässä kohtaa kiinteä, jota ei voi edes muokata.
 
     return (
         <form onSubmit={submitCustomer}>
