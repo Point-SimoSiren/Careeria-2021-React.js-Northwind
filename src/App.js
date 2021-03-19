@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import './App.css'
-import CustomerList from './CustomerList'
-import ProductList from './ProductList'
-import LoginList from './LoginList'
-import EmployeeList from './EmployeeList'
+import CustomerList from './customers/CustomerList'
+import ProductList from './products/ProductList'
+import LoginList from './logins/LoginList'
+import EmployeeList from './employees/EmployeeList'
 import Kello from './Kello'
 
 import Navbar from 'react-bootstrap/Navbar'

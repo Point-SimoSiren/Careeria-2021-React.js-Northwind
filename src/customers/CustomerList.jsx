@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import './App.css'
-import CustomerService from './services/customer'
+import '../App.css'
+import CustomerService from '../services/customer'
 import Customer from './Customer'
 import CustomerAdd from './CustomerAdd'
 import CustomerEdit from './CustomerEdit'
-import Message from './Message'
+import Message from '../Message'
 
 const CustomerList = () => {
 
