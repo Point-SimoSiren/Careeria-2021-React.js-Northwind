@@ -40,7 +40,12 @@ table, th, td {
   border-color: lightgray;
   border-style: dashed;
   border-width: 1px;
-  font-size: 28px;
+  font-size: 20px;
+}
+
+.loginsListTable {
+  width: 100%;
+  margin-left: 2%;
 }
 
 .customerWindow {
