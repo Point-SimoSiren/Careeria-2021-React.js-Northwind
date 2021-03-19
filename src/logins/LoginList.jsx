@@ -22,7 +22,7 @@ const LoginList = () => {
             })
     }, [lisäysTila])
 
-    // Tämä ajetaan kun ollaan poistamassa asiakasta
+    // Tämä ajetaan kun ollaan poistamassa käyttäjää
     const handleDeleteClick = id => {
 
         //Kaivetaan esiin koko login olio jotta alertissa voidaan näyttää companyName id:n sijaan
