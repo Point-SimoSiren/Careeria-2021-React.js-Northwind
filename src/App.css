@@ -108,3 +108,12 @@ input {
   width: 70%;
   margin-left: 15%;
 }
+
+.homepage-header-bg {
+  padding: 8%, 8%, 8%, 8%;
+  margin-top: 7%;
+  font-size: 40px;
+  width: 100%;
+  background-color: red;
+  color: white;
+}

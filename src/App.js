@@ -5,6 +5,7 @@ import ProductList from './products/ProductList'
 import LoginList from './logins/LoginList'
 import EmployeeList from './employees/EmployeeList'
 import Kello from './Kello'
+import Homepage from './Homepage'
 
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
@@ -25,7 +26,7 @@ const App = () => {
       <Router>
 
         <Navbar bg="dark" variant="dark">
-          <Navbar.Brand href="#home">Alkusivu tulossa</Navbar.Brand>
+          <Link to={'/'} className='nav-link'>Home</Link>
 
           <Nav className="mr-auto">
             <Link to={'/Customers'} className='nav-link'>Customers</Link>
@@ -41,6 +42,7 @@ const App = () => {
           <Route path='/Logins' component={LoginList} />
           <Route path='/Products' component={ProductList} />
           <Route path='/Employees' component={EmployeeList} />
+          <Route path='/' component={Homepage} />
         </Switch>
 
       </Router>
