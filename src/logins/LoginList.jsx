@@ -81,7 +81,7 @@ const LoginList = () => {
     // Tässä on käytetty osittain vähän erilaisia ehtolauserakenteita kuin Customereissa
 
     // Jos logineja ei ole ehtinyt tulla kannasta stateen
-    if (!lisäysTila && !logins) {
+    if (!lisäysTila && logins.length === 0) {
         return (<>
             <h1><nobr> Logins</nobr>
 
