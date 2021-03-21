@@ -7,7 +7,7 @@ import Message from '../Message'
 
 const LoginList = () => {
 
-    const [logins, setLogins] = useState([]) // taulukollinen login olioita
+    const [logins, setLogins] = useState([]) // tietotyyppi on taulukko
     const [lisäysTila, setLisäystila] = useState(false)
 
     const [showMessage, setShowMessage] = useState(false)
@@ -78,11 +78,14 @@ const LoginList = () => {
     }
 
     // RETURN ON AINA SE OSA JOKA RENDERÖIDÄÄN RUUDULLE
+    // Tässä on käytetty osittain vähän erilaisia ehtolauserakenteita kuin Customereissa
 
     // Jos logineja ei ole ehtinyt tulla kannasta stateen
-    if (!logins) {
+    if (!lisäysTila && !logins) {
         return (<>
-            <h1>Logins</h1>
+            <h1><nobr> Logins</nobr>
+
+                <button className="nappi" onClick={() => setLisäystila(true)}>Add new</button></h1>
             { showMessage &&
                 <Message message={message} isPositive={isPositive} />
             }
@@ -98,10 +101,15 @@ const LoginList = () => {
 
                     <button className="nappi" onClick={() => setLisäystila(true)}>Add new</button></h1>
 
+                { showMessage &&
+                    <Message message={message} isPositive={isPositive} />
+                }
+
                 <table className="loginsListTable">
-                    <thead>
+                    <thead><tr>
                         <th>Username</th><th>Firstname</th><th>Lastname</th>
                         <th>Email</th><th></th>
+                    </tr>
                     </thead >
                     <tbody>
                         {logins.map(login =>
@@ -119,9 +127,14 @@ const LoginList = () => {
     }
 
     if (lisäysTila) {
-        return (
+        return (<>
+            <h1>Logins</h1>
+            { showMessage &&
+                <Message message={message} isPositive={isPositive} />
+            }
             <LoginAdd setLisäystila={setLisäystila} logins={logins} setLogins={setLogins} setMessage={setMessage} setShowMessage={setShowMessage}
                 setIsPositive={setIsPositive} />
+        </>
         )
     }
 

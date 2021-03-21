@@ -10,8 +10,9 @@ const Login = ({ login, handleDeleteClick }) => {
                 <td>{login.firstname}</td>
                 <td>{login.lastname}</td>
                 <td>{login.email}</td>
-
-                <button className="nappi" onClick={() => handleDeleteClick(login.loginId)}>Delete</button>
+                <td>
+                    <button className="nappi" onClick={() => handleDeleteClick(login.loginId)}>Delete</button>
+                </td>
             </tr>
         </>
     )
