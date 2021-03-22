@@ -1,69 +1,65 @@
 import React, { useState } from 'react'
-import '../App.css'
-import AuthService from '../services/auth'
+import './App.css'
+import AuthService from './services/auth'
 import md5 from 'md5'
 
-const LoginForm = ({ setMessage, setShowMessage, setIsPositive, isLoggedIn, setIsLoggedIn
-}) => {
+const LoginForm = ({ currentUser, setCurrentUser }) => {
 
+    // Login lomakkeen kenttiä vastaavat statet
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
     const authenticate = (event) => {
         event.preventDefault()
 
-        var userToAuth = {
+        const userForAuth = {
             username: username,
-            password: md5(password) // Tässä tehdään myös hashays
-            // Algoritmi on sama kuin käyttäjien luonnissa, jolloin tieto täsmää kantaan
+            password: md5(password)
         }
 
-        console.log(userToAuth)
+        console.log(userForAuth)
 
         AuthService
-            .authenticate(userToAuth)
+            .authenticate(userForAuth)
             .then(response => {
 
                 if (response.status === 200) {
-                    localStorage.setItem(user, response.data.user)
+                    // Selaimen localstorage saa avain-arvo parin kirjautuneelle käyttäjälle:
+                    localStorage.setItem(currentUser, response.data)
 
-                    setMessage(`Tervetuloa ${user.username}`)
-                    setIsPositive(true)
-                    setShowMessage(true)
+                    // Asetetaan käyttäjä stateen
+                    setCurrentUser(response.data)
 
-                    setTimeout(() => {
-                        setShowMessage(false)
-                    }, 4000
-                    )
                 }
 
             })
             .catch(error => {
-                setMessage(`Tapahtui virhe. Tässä lisätietoa: ${error}`)
-                setIsPositive(false)
-                setShowMessage(true)
-
-                setTimeout(() => {
-                    setShowMessage(false)
-                }, 7000
-                )
+                alert(error)
             })
-
-        setIsLoggedIn(true)
 
     }
 
-    {
-        isLoggedIn &&
+    if (!currentUser) {
+        return (
+
             <form onSubmit={authenticate}>
                 <label>Username</label>
-                <input type="text" />
+                <input type="text" onChange={({ target }) => setUsername(target.value)} />
                 <label>Password</label>
-                <input type="text" />
+                <input type="password" onChange={({ target }) => setPassword(target.value)} />
                 <button type="submit">Login</button>
                 <button>Cancel</button>
             </form>
+        )
+    }
 
+    else {
+        return (
+
+            <div>
+                <p>`Logged in as ${currentUser.username}`</p>
+            </div>
+        )
     }
 }
 
