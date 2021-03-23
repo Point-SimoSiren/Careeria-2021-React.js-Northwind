@@ -3,7 +3,7 @@ import '../App.css'
 import LoginService from '../services/login'
 import md5 from 'md5'
 
-const CustomerAdd = ({ setLisäystila, setLogins, logins, setMessage, setShowMessage,
+const LoginAdd = ({ setLisäystila, setLogins, logins, setMessage, setShowMessage,
     setIsPositive }) => {
 
     // State määritykset, id:tä ei anneta vaan tietokanta luo sen
@@ -129,4 +129,4 @@ const CustomerAdd = ({ setLisäystila, setLogins, logins, setMessage, setShowMes
     )
 }
 
-export default CustomerAdd
+export default LoginAdd
