@@ -117,3 +117,46 @@ input {
   background-color: red;
   color: white;
 }
+
+/* Login form */
+
+.login-form {
+width: 30%;
+height: 80px;
+padding-bottom: 0px;
+text-align: left;
+margin-left: 60%;
+}
+
+.login-input {
+  font-size: 14px;
+  height: 20px;
+  margin-left: 3px;
+}
+
+ 
+.login-button {
+  margin-left: 4px;
+	background-color:#44c767;
+	border-radius:9px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:14px;
+	padding:1px 8px;
+	text-decoration:none;
+  }
+
+  .cancel-button {
+    margin-left: 2px;
+    background-color: black;
+    border-radius:9px;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:14px;
+    padding:1px 8px;
+    text-decoration:none;
+    }

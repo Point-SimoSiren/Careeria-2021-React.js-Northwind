@@ -15,7 +15,17 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
 const App = () => {
 
-  const [currentUser, setCurrentUser] = useState(true)
+  // State kirjautuneesta käyttäjästä
+  const [currentUser, setCurrentUser] = useState()
+
+  // use effectissä tarkistetaan onko selaimen local storagessa user tietoa
+  useEffect(() => {
+    const userFromLS = localStorage.getItem('user')
+    if (userFromLS) {
+      setCurrentUser(userFromLS)
+    }
+  }, []
+  )
 
   if (currentUser) {
     return (
@@ -35,7 +45,9 @@ const App = () => {
 
               <Link to={'/Products'} className='nav-link'>Products</Link>
               <Link to={'/Employees'} className='nav-link'>Employees</Link>
+
               <LoginForm currentUser={currentUser} setCurrentUser={setCurrentUser} />
+
             </Nav>
           </Navbar>
 
@@ -63,7 +75,9 @@ const App = () => {
 
           <Navbar bg="dark" variant="dark">
             <Link to={'/'} className='nav-link'>Home</Link>
+
             <LoginForm currentUser={currentUser} setCurrentUser={setCurrentUser} />
+
           </Navbar>
 
           <Switch>

@@ -9,12 +9,16 @@ const LoginForm = ({ currentUser, setCurrentUser }) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
+
+    // Login napin painallus ajaa tämän:
+
     const authenticate = (event) => {
         event.preventDefault()
 
         const userForAuth = {
-            username: username,
-            password: md5(password)
+            "username": username,
+            "password": password
+
         }
 
         console.log(userForAuth)
@@ -25,8 +29,8 @@ const LoginForm = ({ currentUser, setCurrentUser }) => {
 
                 if (response.status === 200) {
                     // Selaimen localstorage saa avain-arvo parin kirjautuneelle käyttäjälle:
-                    localStorage.setItem(currentUser, response.data)
-
+                    localStorage.setItem('user', response.data)
+                    console.log(response.data)
                     // Asetetaan käyttäjä stateen
                     setCurrentUser(response.data)
 
@@ -39,16 +43,26 @@ const LoginForm = ({ currentUser, setCurrentUser }) => {
 
     }
 
+    // Empty napin painallus ajaa tämän
+    const emptyFields = () => {
+        setPassword('')
+        setUsername('')
+    }
+
     if (!currentUser) {
+
         return (
 
-            <form onSubmit={authenticate}>
-                <label>Username</label>
-                <input type="text" onChange={({ target }) => setUsername(target.value)} />
-                <label>Password</label>
-                <input type="password" onChange={({ target }) => setPassword(target.value)} />
-                <button type="submit">Login</button>
-                <button>Cancel</button>
+            <form className="login-form" onSubmit={authenticate}>
+
+                <input className="login-input" type="text" placeholder="Username" onChange={({ target }) => setUsername(target.value)} />
+
+                <input className="login-input" type="password" placeholder="password" onChange={({ target }) => setPassword(target.value)} />
+
+                <button className="login-button" type="submit">Login</button>
+
+                <button className="cancel-button" onClick={() => emptyFields}>Empty</button>
+
             </form>
         )
     }
@@ -57,7 +71,7 @@ const LoginForm = ({ currentUser, setCurrentUser }) => {
         return (
 
             <div>
-                <p>`Logged in as ${currentUser.username}`</p>
+                <nobr>`Logged in as ${currentUser.username}`</nobr>
             </div>
         )
     }

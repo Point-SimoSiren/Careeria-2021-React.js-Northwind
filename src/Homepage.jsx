@@ -7,10 +7,8 @@ const Homepage = () => {
     return (
         <>
 
-            <Kello koko={300} />
-            <div className="homepage-header-bg">
-                <marquee><h1 className="homepage-header">Welcome to Northwind React Application</h1></marquee>
-            </div>
+            <Kello koko={400} />
+
         </>
     )
 }
