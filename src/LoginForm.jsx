@@ -9,22 +9,15 @@ const LoginForm = ({ currentUser, setCurrentUser }) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
-    // Näytetäänkö pelkkä komponentti vai nappi jonka takana komponentti aukeaa
-    const [näytetäänkö, setNäytetäänkö] = useState(false)
-
-
     // Login napin painallus ajaa tämän:
-
     const authenticate = (event) => {
         event.preventDefault()
 
         const userForAuth = {
             username: username,
+            //password: md5(password) vaihda kommentit ao. kanssa jos kannassa hashatty salasana
             password: password
-
         }
-
-        console.log(userForAuth)
 
         AuthService
             .authenticate(userForAuth)
@@ -35,20 +28,17 @@ const LoginForm = ({ currentUser, setCurrentUser }) => {
 
                 // Asetetaan käyttäjä stateen
                 setCurrentUser(response.username)
-                setNäytetäänkö(true)
 
             })
             .catch(error => {
                 alert(error)
             })
-
     }
 
     const logout = () => {
         localStorage.clear()
-        window.location.reload()
+        setCurrentUser(null)
     }
-
 
     // Empty napin painallus ajaa tämän
     const emptyFields = () => {
@@ -56,43 +46,29 @@ const LoginForm = ({ currentUser, setCurrentUser }) => {
         setUsername('')
     }
 
-    if (!currentUser && näytetäänkö) {
-
+    if (!currentUser) {
         return (
             <>
                 <form className="login-form" onSubmit={authenticate}>
-
                     <input className="login-input" value={username} type="text" placeholder="Username" onChange={({ target }) => setUsername(target.value)} />
 
                     <input className="login-input" value={password} type="password" placeholder="password" onChange={({ target }) => setPassword(target.value)} />
 
                     <button type="submit" className="login-button">Login</button>
 
-                    <button className="cancel-button" onClick={emptyFields}>Empty</button>
-
-                    <button className="cancel-button" onClick={() => setNäytetäänkö(false)}>Hide</button>
-
+                    <p className="cancel-button" onClick={emptyFields}>Empty</p>
                 </form>
-
-
             </>
         )
     }
 
-    else if (currentUser && näytetäänkö) {
+    else if (currentUser) {
         return (
 
-            <div>
-                <p>`Logged in as ${currentUser.username}`</p>
+            <div className="käyttäjä-tieto">
+                <nobr>{`Logged in as ${currentUser}`}</nobr>
                 <button className="cancel-button" onClick={logout}>Logout</button>
             </div>
-        )
-    }
-
-    else {
-        return (
-
-            <button onClick={() => setNäytetäänkö(true)}>Login</button>
         )
     }
 

@@ -21,7 +21,7 @@ const App = () => {
   const [currentUser, setCurrentUser] = useState()
 
 
-  // use effectissä tarkistetaan onko selaimen local storagessa user tietoa
+  // use effectissä tarkistetaan onko selaimen local storagessa user tietoa vanhastaan
   useEffect(() => {
     const userFromLS = localStorage.getItem('user')
     if (userFromLS) {
@@ -78,9 +78,7 @@ const App = () => {
 
           <Navbar bg="dark" variant="dark">
             <Link to={'/'} className='nav-link'>Home</Link>
-
             <LoginForm currentUser={currentUser} setCurrentUser={setCurrentUser} />
-
           </Navbar>
 
           <Switch>
