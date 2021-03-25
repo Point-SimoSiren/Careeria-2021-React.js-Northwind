@@ -3,7 +3,8 @@ import './App.css'
 import AuthService from './services/auth'
 import md5 from 'md5'
 
-const LoginForm = ({ currentUser, setCurrentUser }) => {
+const LoginForm = ({ currentUser, setCurrentUser, setMessage,
+    setIsPositive, setShowMessage }) => {
 
     // Login lomakkeen kenttiä vastaavat statet
     const [username, setUsername] = useState('')
@@ -19,25 +20,66 @@ const LoginForm = ({ currentUser, setCurrentUser }) => {
             password: password
         }
 
-        AuthService
+        AuthService // Käytetään AuthServicen metodia authenticate()
             .authenticate(userForAuth)
             .then(response => {
 
+                //Palvelimen vastauksena tullut käyttäjä talletetaan selaimen local storageen
+                //Päätetään tallettaa vain 2 tietoa:
                 localStorage.setItem('user', response.username)
                 localStorage.setItem('token', response.token)
 
-                // Asetetaan käyttäjä stateen
+                // Asetetaan käyttäjänimi currentUser -stateen, jota säilytetään App.js:ssä
                 setCurrentUser(response.username)
 
+                // Annetaan ilmoitus käyttäen Message komponenttia, joka sijaitsee nyt tämän
+                // viestin näyttämiseksi App.js komponentissa navbarin alapuolella.
+                // Login form on niin pieni ja nurkassa että tämän sisällä ei voi näyttää messagea.
+
+                setMessage(`Tervetuloa ${response.username}`)
+                setIsPositive(true)
+                setShowMessage(true)
+
+                // Message pois pienen viiveen jälkeen:
+                setTimeout(() => {
+                    setShowMessage(false)
+                }, 4000
+
+                )
+
             })
+
             .catch(error => {
-                alert(error)
+                setMessage(`Error ${error}`)
+                setIsPositive(false)  // Erroreille punainen viesti
+                setShowMessage(true)
+
+                // Message pois pienen viiveen jälkeen:
+                setTimeout(() => {
+                    setShowMessage(false)
+                }, 4000
+
+                )
             })
     }
 
+    // Tämä funktio ajetaan kun tehdään Logout
     const logout = () => {
         localStorage.clear()
         setCurrentUser(null)
+
+        // Message
+        setMessage('Kirjauduit ulos onnistuneesti')
+        setIsPositive(true)
+        setShowMessage(true)
+
+        // Message pois pienen viiveen jälkeen:
+        setTimeout(() => {
+            setShowMessage(false)
+        }, 4000
+
+        )
+
     }
 
     // Empty napin painallus ajaa tämän
@@ -46,6 +88,7 @@ const LoginForm = ({ currentUser, setCurrentUser }) => {
         setUsername('')
     }
 
+    // Jos App.js:n useEffect funktio ei löydä local storagesta käyttäjää, tilanne on tämä:
     if (!currentUser) {
         return (
             <>
@@ -61,7 +104,7 @@ const LoginForm = ({ currentUser, setCurrentUser }) => {
             </>
         )
     }
-
+    // Muussa tapauksessa:
     else if (currentUser) {
         return (
 

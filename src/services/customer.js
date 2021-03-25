@@ -9,7 +9,7 @@ const setToken = newToken => {
     token = `bearer ${newToken}`
 }
 
-// Token liitetään metodeissa mukaan pyyntöön
+// Token liitetään metodeissa mukaan pyyntöön config objektin muodossa
 
 const getAll = () => {
     const config = {
