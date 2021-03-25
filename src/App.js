@@ -15,8 +15,10 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
 const App = () => {
 
+
   // State kirjautuneesta käyttäjästä
-  const [currentUser, setCurrentUser] = useState({ username: "simo" })
+  const [currentUser, setCurrentUser] = useState()
+
 
   // use effectissä tarkistetaan onko selaimen local storagessa user tietoa
   useEffect(() => {
@@ -85,6 +87,8 @@ const App = () => {
           </Switch>
 
         </Router>
+
+        <LoginForm currentUser={currentUser} setCurrentUser={setCurrentUser} />
 
       </div >
     )

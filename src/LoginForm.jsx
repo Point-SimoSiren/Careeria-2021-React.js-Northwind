@@ -9,6 +9,9 @@ const LoginForm = ({ currentUser, setCurrentUser }) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
+    // Näytetäänkö pelkkä komponentti vai nappi jonka takana komponentti aukeaa
+    const [näytetäänkö, setNäytetäänkö] = useState(false)
+
 
     // Login napin painallus ajaa tämän:
 
@@ -16,8 +19,8 @@ const LoginForm = ({ currentUser, setCurrentUser }) => {
         event.preventDefault()
 
         const userForAuth = {
-            "username": username,
-            "password": password
+            username: username,
+            password: password
 
         }
 
@@ -25,14 +28,14 @@ const LoginForm = ({ currentUser, setCurrentUser }) => {
 
         AuthService
             .authenticate(userForAuth)
-            .then(response => {
+            .then(promise => {
 
-                if (response.status === 200) {
+                if (promise.status === 200) {
                     // Selaimen localstorage saa avain-arvo parin kirjautuneelle käyttäjälle:
-                    localStorage.setItem('user', response.data)
-                    console.log(response.data)
+                    localStorage.setItem('user', promise.data)
+                    console.log(promise.data)
                     // Asetetaan käyttäjä stateen
-                    setCurrentUser(response.data)
+                    setCurrentUser(promise.data)
 
                 }
 
@@ -49,17 +52,17 @@ const LoginForm = ({ currentUser, setCurrentUser }) => {
         setUsername('')
     }
 
-    if (!currentUser) {
+    if (!currentUser && näytetäänkö) {
 
         return (
             <>
                 <form className="login-form" onSubmit={authenticate}>
 
-                    <input className="login-input" type="text" placeholder="Username" onChange={({ target }) => setUsername(target.value)} />
+                    <input className="login-input" value={username} type="text" placeholder="Username" onChange={({ target }) => setUsername(target.value)} />
 
-                    <input className="login-input" type="password" placeholder="password" onChange={({ target }) => setPassword(target.value)} />
+                    <input className="login-input" value={password} type="password" placeholder="password" onChange={({ target }) => setPassword(target.value)} />
 
-                    <button className="login-button" type="submit">Login</button>
+                    <button type="submit" className="login-button">Login</button>
 
                     <button className="cancel-button" onClick={emptyFields}>Empty</button>
 
@@ -70,7 +73,7 @@ const LoginForm = ({ currentUser, setCurrentUser }) => {
         )
     }
 
-    else {
+    else if (currentUser && näytetäänkö) {
         return (
 
             <div>
@@ -78,6 +81,14 @@ const LoginForm = ({ currentUser, setCurrentUser }) => {
             </div>
         )
     }
+
+    else {
+        return (
+
+            <button onClick={() => setNäytetäänkö(true)}>Login</button>
+        )
+    }
+
 }
 
 export default LoginForm
