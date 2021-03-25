@@ -5,6 +5,7 @@ import ProductList from './products/ProductList'
 import LoginList from './logins/LoginList'
 import EmployeeList from './employees/EmployeeList'
 import Homepage from './Homepage'
+
 import LoginForm from './LoginForm'
 
 import Navbar from 'react-bootstrap/Navbar'
@@ -87,8 +88,6 @@ const App = () => {
           </Switch>
 
         </Router>
-
-        <LoginForm currentUser={currentUser} setCurrentUser={setCurrentUser} />
 
       </div >
     )

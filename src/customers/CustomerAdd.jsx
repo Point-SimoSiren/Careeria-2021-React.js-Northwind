@@ -37,6 +37,10 @@ const CustomerAdd = ({ setLisäystila, setCustomers, customers, setMessage, setS
             fax: newFax
         }
 
+        const jwt = localStorage.getItem('token')
+        CustomerService.setToken(jwt)
+
+
         CustomerService
             .create(newCustomer)
             .then(response => {

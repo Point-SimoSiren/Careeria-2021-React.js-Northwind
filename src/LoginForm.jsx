@@ -28,16 +28,14 @@ const LoginForm = ({ currentUser, setCurrentUser }) => {
 
         AuthService
             .authenticate(userForAuth)
-            .then(promise => {
+            .then(response => {
 
-                if (promise.status === 200) {
-                    // Selaimen localstorage saa avain-arvo parin kirjautuneelle käyttäjälle:
-                    localStorage.setItem('user', promise.data)
-                    console.log(promise.data)
-                    // Asetetaan käyttäjä stateen
-                    setCurrentUser(promise.data)
+                localStorage.setItem('user', response.username)
+                localStorage.setItem('token', response.token)
 
-                }
+                // Asetetaan käyttäjä stateen
+                setCurrentUser(response.username)
+                setNäytetäänkö(true)
 
             })
             .catch(error => {
@@ -45,6 +43,12 @@ const LoginForm = ({ currentUser, setCurrentUser }) => {
             })
 
     }
+
+    const logout = () => {
+        localStorage.clear()
+        window.location.reload()
+    }
+
 
     // Empty napin painallus ajaa tämän
     const emptyFields = () => {
@@ -66,6 +70,8 @@ const LoginForm = ({ currentUser, setCurrentUser }) => {
 
                     <button className="cancel-button" onClick={emptyFields}>Empty</button>
 
+                    <button className="cancel-button" onClick={() => setNäytetäänkö(false)}>Hide</button>
+
                 </form>
 
 
@@ -77,7 +83,8 @@ const LoginForm = ({ currentUser, setCurrentUser }) => {
         return (
 
             <div>
-                <nobr>`Logged in as ${currentUser.username}`</nobr>
+                <p>`Logged in as ${currentUser.username}`</p>
+                <button className="cancel-button" onClick={logout}>Logout</button>
             </div>
         )
     }
