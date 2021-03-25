@@ -52,18 +52,21 @@ const LoginForm = ({ currentUser, setCurrentUser }) => {
     if (!currentUser) {
 
         return (
+            <>
+                <form className="login-form" onSubmit={authenticate}>
 
-            <form className="login-form" onSubmit={authenticate}>
+                    <input className="login-input" type="text" placeholder="Username" onChange={({ target }) => setUsername(target.value)} />
 
-                <input className="login-input" type="text" placeholder="Username" onChange={({ target }) => setUsername(target.value)} />
+                    <input className="login-input" type="password" placeholder="password" onChange={({ target }) => setPassword(target.value)} />
 
-                <input className="login-input" type="password" placeholder="password" onChange={({ target }) => setPassword(target.value)} />
+                    <button className="login-button" type="submit">Login</button>
 
-                <button className="login-button" type="submit">Login</button>
+                    <button className="cancel-button" onClick={emptyFields}>Empty</button>
 
-                <button className="cancel-button" onClick={() => emptyFields}>Empty</button>
+                </form>
 
-            </form>
+
+            </>
         )
     }
 
