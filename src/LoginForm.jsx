@@ -16,7 +16,7 @@ const LoginForm = ({ currentUser, setCurrentUser, setMessage,
 
         const userForAuth = {
             username: username,
-            //password: md5(password) vaihda kommentit ao. kanssa jos kannassa hashatty salasana
+            //password: md5(password) //vaihda kommentit ao. kanssa jos kannassa ei-hashatty salasana
             password: password
         }
 

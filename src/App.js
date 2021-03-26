@@ -52,7 +52,7 @@ const App = () => {
               <Link to={'/Products'} className='nav-link'>Products</Link>
               <Link to={'/Employees'} className='nav-link'>Employees</Link>
 
-              <LoginForm currentUser={currentUser} setCurrentUser={setCurrentUser} setMessage={setMessage} setIsPositive={seIsPositive} setShowMessage={setShowMessage} />
+              <LoginForm currentUser={currentUser} setCurrentUser={setCurrentUser} setMessage={setMessage} setIsPositive={setIsPositive} setShowMessage={setShowMessage} />
 
             </Nav>
           </Navbar>
